@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import { RefresherCustomEvent } from '@ionic/angular';
-import { MessageComponent } from '../message/message.component';
 
 import { DataService, Message } from '../services/data.service';
 
@@ -21,5 +21,10 @@ export class HomePage {
 
   getMessages(): Message[] {
     return this.data.getMessages();
+  }
+
+  drop(event: any) {
+    const ddEvent = event as CdkDragDrop<Message[]>
+    moveItemInArray(this.getMessages(), event.previousIndex, event.currentIndex);
   }
 }
